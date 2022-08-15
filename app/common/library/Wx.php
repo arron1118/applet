@@ -21,7 +21,13 @@ class Wx
     public function getAccessToken()
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/token';
-        return $this->send($url);
+        if (!session('?wx_access_token') || session('wx_access_token.expires_in') < time()) {
+            $res = $this->send($url);
+            $res['expires_in'] = time() + $res['expires_in'];
+            session('wx_access_token', $res);
+        }
+
+        return session('wx_access_token');
     }
 
     /**

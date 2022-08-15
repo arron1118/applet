@@ -138,7 +138,7 @@ class ApiController extends BaseController
 //        }
 
             if ($data) {
-                return $this->paramFilter(json_decode($this->aes->aesDecode($data), true, 512, JSON_THROW_ON_ERROR));
+                return $this->paramFilter(json_decode($this->aes->aesDecode($data), true));
             }
 
             return [];
