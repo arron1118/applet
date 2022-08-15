@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | PHP交流群: 763822524
 // +----------------------------------------------------------------------
-// | 开源协议  https://mit-license.org 
+// | 开源协议  https://mit-license.org
 // +----------------------------------------------------------------------
 // | github开源项目：https://github.com/zhongshaofa/EasyAdmin
 // +----------------------------------------------------------------------
@@ -148,7 +148,7 @@ class AdminController extends BaseController
      * @param array $excludeFields 忽略构建搜索的字段
      * @return array
      */
-    protected function buildTableParames($excludeFields = [])
+    protected function buildTableParames(array $excludeFields = []): array
     {
         $get = $this->request->get('', null, null);
         $page = isset($get['page']) && !empty($get['page']) ? $get['page'] : 1;
@@ -258,12 +258,13 @@ class AdminController extends BaseController
         // 验证登录
         if (!in_array($currentController, $adminConfig['no_login_controller']) &&
             !in_array($currentNode, $adminConfig['no_login_node'])) {
-            empty($adminId) && $this->error('请先登录后台', [], __url('admin/login/index'));
+//            empty($adminId) && $this->error('请先登录后台', [], __url('admin/login/index'));
+            empty($adminId) && $this->redirect(__url('admin/login/index'));
 
             // 判断是否登录过期
             if ($expireTime !== true && time() > $expireTime) {
                 session('admin', null);
-                $this->error('登录已过期，请重新登录', [], __url('admin/login/index'));
+                $this->redirect(__url('admin/login/index'));
             }
         }
 

@@ -32,7 +32,7 @@ class CsrfMiddleware
                 $refererUrl = $request->header('REFERER', null);
                 $refererInfo = parse_url($refererUrl);
                 $host = $request->host(true);
-                if (!isset($refererInfo['host']) || $refererInfo['host'] != $host) {
+                if (!isset($refererInfo['host']) || $refererInfo['host'] !== $host) {
                     $this->error('当前请求不合法！');
                 }
 
