@@ -29,9 +29,11 @@
         "jianyan74/php-excel": "^1.0",
         "zhongshaofa/easy-admin": "^1.0.2",
         "ext-json": "*",
-        "zhongshaofa/thinkphp-log-trace": "^1.0"
+        "zhongshaofa/thinkphp-log-trace": "^1.0",
+        "curl/curl": "^2.3"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "symfony/var-dumper": "^4.2",
         "eaglewu/swoole-ide-helper": "dev-master"
     },

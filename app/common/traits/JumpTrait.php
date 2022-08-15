@@ -17,13 +17,13 @@ trait JumpTrait
      * @access protected
      * @param mixed $msg 提示信息
      * @param mixed $data 返回的数据
-     * @param string $url 跳转的 URL 地址
+     * @param string|null $url 跳转的 URL 地址
      * @param int $wait 跳转等待时间
      * @param array $header 发送的 Header 信息
      * @return void
      * @throws HttpResponseException
      */
-    protected function success($msg = '', $data = '', $url = null, $wait = 3, array $header = [])
+    protected function success($msg = '', $data = '', $url = null, int $wait = 3, array $header = []): void
     {
         if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
             $url = $_SERVER["HTTP_REFERER"];
@@ -40,9 +40,9 @@ trait JumpTrait
         ];
 
         $type = $this->getResponseType();
-        if ($type == 'html') {
+        if ($type === 'html') {
             $response = view(app('config')->get('app.dispatch_success_tmpl'), $result);
-        } elseif ($type == 'json') {
+        } elseif ($type === 'json') {
             $response = json($result);
         }
         throw new HttpResponseException($response);
@@ -53,13 +53,13 @@ trait JumpTrait
      * @access protected
      * @param mixed $msg 提示信息
      * @param mixed $data 返回的数据
-     * @param string $url 跳转的 URL 地址
+     * @param string|null $url 跳转的 URL 地址
      * @param int $wait 跳转等待时间
      * @param array $header 发送的 Header 信息
      * @return void
      * @throws HttpResponseException
      */
-    protected function error($msg = '', $data = '', $url = null, $wait = 3, array $header = [])
+    protected function error($msg = '', $data = '',  $url = null, int $wait = 3, array $header = []): void
     {
         if (is_null($url)) {
             $url = request()->isAjax() ? '' : 'javascript:history.back(-1);';
@@ -75,9 +75,9 @@ trait JumpTrait
             'url'  => $url,
             'wait' => $wait,
         ];
-        if ($type == 'html') {
+        if ($type === 'html') {
             $response = view(app('config')->get('app.dispatch_error_tmpl'), $result);
-        } elseif ($type == 'json') {
+        } elseif ($type === 'json') {
             $response = json($result);
         }
         throw new HttpResponseException($response);
@@ -94,7 +94,7 @@ trait JumpTrait
      * @return void
      * @throws HttpResponseException
      */
-    protected function result($data, $code = 0, $msg = '', $type = '', array $header = [])
+    protected function result($data, int $code = 0, $msg = '', string $type = '', array $header = []): void
     {
         $result   = [
             'code' => $code,
@@ -118,9 +118,9 @@ trait JumpTrait
      * @return void
      * @throws HttpResponseException
      */
-    protected function redirect($url = [], $params = [], $code = 302)
+    protected function redirect($url = [], $params = [], int $code = 302): void
     {
-        if (is_integer($params)) {
+        if (is_int($params)) {
             $code   = $params;
             $params = [];
         }
@@ -134,7 +134,7 @@ trait JumpTrait
      * @access protected
      * @return string
      */
-    protected function getResponseType()
+    protected function getResponseType(): string
     {
         return (request()->isJson() || request()->isAjax() || request()->isPost()) ? 'json' : 'html';
     }

@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | PHP交流群: 763822524
 // +----------------------------------------------------------------------
-// | 开源协议  https://mit-license.org 
+// | 开源协议  https://mit-license.org
 // +----------------------------------------------------------------------
 // | github开源项目：https://github.com/zhongshaofa/EasyAdmin
 // +----------------------------------------------------------------------
@@ -59,17 +59,17 @@ class Login extends AdminController
             if (empty($admin)) {
                 $this->error('用户不存在');
             }
-            if (password($post['password']) != $admin->password) {
+            if (password($post['password']) !== $admin->password) {
                 $this->error('密码输入有误');
             }
-            if ($admin->status == 0) {
+            if ($admin->status === 0) {
                 $this->error('账号已被禁用');
             }
-            $admin->login_num += 1;
+            ++$admin->login_num;
             $admin->save();
             $admin = $admin->toArray();
             unset($admin['password']);
-            $admin['expire_time'] = $post['keep_login'] == 1 ? true : time() + 7200;
+            $admin['expire_time'] = $post['keep_login'] === 1 ? true : time() + 7200;
             session('admin', $admin);
             $this->success('登录成功');
         }
