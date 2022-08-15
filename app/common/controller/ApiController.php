@@ -17,7 +17,7 @@ class ApiController extends BaseController
      * 无需登录的接口
      * @var string[]
      */
-    protected array $noNeedLogin = ['login', 'getAesEncodeData', 'getAesDecodeData', 'getSiteInfo', 'getAccessToken'];
+    protected array $noNeedLogin = ['login', 'getAesEncodeData', 'getAesDecodeData', 'getSiteInfo', 'getAccessToken', 'index'];
 
     /**
      * 用户信息
