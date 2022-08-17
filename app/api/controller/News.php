@@ -28,9 +28,14 @@ class News extends ApiController
      *
      * @return \think\Response
      */
-    public function index()
+    public function index($cid)
     {
-        //
+        $this->returnData['code'] = 1;
+        $this->returnData['data'] = $this->model::where([
+            ['status', '=', 1],
+            ['cate_id', '=', $cid],
+        ])->select();
+        $this->returnApiData();
     }
 
     /**

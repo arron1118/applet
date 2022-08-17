@@ -27,7 +27,12 @@ class NewsCate extends ApiController
     public function index()
     {
         $this->returnData['code'] = 1;
-        $this->returnData['data'] = $this->model::field('id, title')->where('status', 1)->select();
+        $this->returnData['data'] = $this->model::field('id, title')
+            ->where([
+                ['status', '=', 1],
+                ['pid', '=', 0],
+            ])
+            ->select();
         $this->returnApiData();
     }
 
