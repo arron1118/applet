@@ -4,6 +4,7 @@ namespace app\common\library;
 
 use app\admin\model\SystemConfig;
 use Curl\Curl;
+use think\facade\Log;
 
 class Wx
 {
@@ -147,7 +148,8 @@ class Wx
     {
         $curl = new Curl();
         $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param);
-        return json_decode($curl->response, true);
+        Log::info('wechat login', $curl->getResponse());
+        return json_decode($curl->response);
     }
 
     /**
