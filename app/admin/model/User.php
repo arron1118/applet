@@ -11,8 +11,8 @@ class User extends TimeModel
 
     protected $deleteTime = "delete_time";
 
-    
-    
+
+
     public function getGenderList()
     {
         return ['0'=>'保密','1'=>'男','2'=>'女',];
@@ -23,5 +23,9 @@ class User extends TimeModel
         return ['0'=>'禁用','1'=>'启用',];
     }
 
-
+    public function signUp($openId, $userInfo)
+    {
+        $this->openId = $openId;
+        
+    }
 }

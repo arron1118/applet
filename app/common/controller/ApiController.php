@@ -68,7 +68,7 @@ class ApiController extends BaseController
     public array $returnData = [
         'code' => 0,
         'data' => [],
-        'msg' => '未知错误',
+        'msg' => 'success',
     ];
 
     protected function initialize():void
