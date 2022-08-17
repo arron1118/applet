@@ -11,17 +11,17 @@ class UserNewsCollect extends TimeModel
 
     protected $deleteTime = "delete_time";
 
-    
+
     public function news()
     {
-        return $this->belongsTo('\app\admin\model\News', 'news_id', 'id');
+        return $this->belongsTo(News::class, 'news_id', 'id')->bind(['title']);
     }
 
     public function user()
     {
-        return $this->belongsTo('\app\admin\model\User', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id')->bind(['nickname']);
     }
 
-    
+
 
 }

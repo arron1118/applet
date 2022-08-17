@@ -11,12 +11,12 @@ class UserSessions extends TimeModel
 
     protected $deleteTime = false;
 
-    
+
     public function user()
     {
-        return $this->belongsTo('\app\admin\model\User', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    
+
 
 }

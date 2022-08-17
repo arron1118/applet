@@ -11,17 +11,17 @@ class UserNewsCommentsSupport extends TimeModel
 
     protected $deleteTime = "delete_time";
 
-    
+
     public function newsComments()
     {
-        return $this->belongsTo('\app\admin\model\NewsComments', 'comments_id', 'id');
+        return $this->belongsTo(NewsComments::class, 'comments_id', 'id')->bind(['content']);
     }
 
     public function user()
     {
-        return $this->belongsTo('\app\admin\model\User', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id')->bind(['nickname']);
     }
 
-    
+
 
 }

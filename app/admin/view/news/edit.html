@@ -4,7 +4,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">分类</label>
             <div class="layui-input-block">
-                <select name="cate_id" >
+                <select name="cate_id"  lay-verify="required">
                     <option value=''></option>
                     {foreach $getNewsCateList as $k=>$v}
                     <option value='{$k}' {in name="k" value="$row.cate_id"}selected=""{/in}>{$v}</option>
@@ -15,13 +15,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">标题</label>
             <div class="layui-input-block">
-                <input type="text" name="title" class="layui-input"  placeholder="请输入标题" value="{$row.title|default=''}">
+                <input type="text" name="title" class="layui-input"  lay-verify="required" placeholder="请输入标题" value="{$row.title|default=''}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">新闻内容</label>
             <div class="layui-input-block">
-                <textarea name="content" rows="20" class="layui-textarea editor" 新闻内容 placeholder="请输入新闻内容">{$row.content|raw|default=''}</textarea>
+                <textarea name="content" rows="20" class="layui-textarea editor"  lay-verify="required" placeholder="请输入新闻内容">{$row.content|raw|default=''}</textarea>
             </div>
         </div>
         <div class="layui-form-item">

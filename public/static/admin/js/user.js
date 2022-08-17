@@ -30,7 +30,6 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'country', title: '国家'},
                     {field: 'province', title: '省份'},
                     {field: 'city', title: '市'},
-                    {field: 'invite_code', title: '邀请码'},
                     {field: 'status', search: 'select', selectList: ["禁用","启用"], title: '状态', templet: ea.table.switch},
                     {field: 'create_time', title: '创建时间', search: 'range'},
                     {width: 250, title: '操作', templet: ea.table.tool},
