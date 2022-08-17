@@ -24,7 +24,7 @@ class User extends TimeModel
     }
 
     public function getUserInfo($openid, $userInfo) {
-        $user = $this->where('openid', $openid)->find();
+        $user = $this->where('openid', $openid)->hidden(['password'])->find();
         if (!$user) {
             $data['openid'] = $openid;
             $data['city'] = $userInfo['city'];
@@ -32,7 +32,9 @@ class User extends TimeModel
             $data['country'] = $userInfo['country'];
             $data['province'] = $userInfo['province'];
             $data['nickname'] = $userInfo['nickName'];
-            $user = $this->save($data);
+            $this->save($data);
+
+            $user = $this;
         }
 
         return $user;
