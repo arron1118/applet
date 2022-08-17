@@ -20,8 +20,8 @@ class User extends ApiController
     public function login($code, $userInfo = [])
     {
         $data = (new Wx)->login($code);
-        $res = (new UserModel)->getUserInfo($data['openid'], $userInfo);
-        $this->returnData['data'] = $res;
+        $res = (new UserModel())->getUserInfo($data['openid'], $userInfo);
+        $this->returnData['data'] = $userInfo;
         $this->returnData['code'] = 1;
         $this->returnApiData();
     }
