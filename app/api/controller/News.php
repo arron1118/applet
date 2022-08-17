@@ -89,29 +89,21 @@ class News extends ApiController
     public function setInc(Request $request, $id)
     {
         $params = $request->only(['id', 'share', 'collect', 'support', 'read_count']);
-        foreach ($params as $val) {
-            if ($val !== 'id') {
-                $this->model::where('id', $id)->inc($val)->update();
-            }
-        }
-
         $model = null;
-        switch ($params) {
-            case 'share':
+        foreach ($params as $key => $val) {
+            if ($key !== 'id') {
+                $this->model::where('id', $id)->inc($key)->update();
+            }
+
+            if ($key === 'share') {
                 $model = \app\admin\model\UserNewsShare::class;
-                break;
-
-            case 'collect':
+            } elseif ($key === 'collect') {
                 $model = \app\admin\model\UserNewsCollect::class;
-                break;
-
-            case 'support':
+            } elseif ($key === 'support') {
                 $model = \app\admin\model\UserNewsSupport::class;
-                break;
-
-            case 'read_count':
+            } elseif ($key === 'read_count') {
                 $model = \app\admin\model\UserNewsHistory::class;
-                break;
+            }
         }
 
         if ($model !== null) {
