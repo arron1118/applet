@@ -147,7 +147,8 @@ class Wx
     protected function send($url, $method = 'get', $param = [])
     {
         $curl = new Curl();
-        $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param);
+//        $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param);
+        $curl->get($url, $param);
         Log::info('wechat login', json_decode($curl->getResponse(), false));
         return json_decode($curl->response);
     }
