@@ -31,7 +31,8 @@
         "ext-json": "*",
         "zhongshaofa/thinkphp-log-trace": "^1.0",
         "curl/curl": "^2.3",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+      "ext-curl": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

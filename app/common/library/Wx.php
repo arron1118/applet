@@ -148,8 +148,9 @@ class Wx
     {
         $curl = new Curl();
 //        $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param);
+        $curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);
         $curl->get($url, $param);
-        Log::info($curl->getResponseHeaders());
+        Log::info($curl->getResponse());
         return json_decode($curl->response);
     }
 
