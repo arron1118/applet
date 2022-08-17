@@ -47,7 +47,7 @@ class ApiController extends BaseController
      * api token
      * @var null
      */
-    protected $token = null;
+    protected $openid = null;
 
     /**
      * 加密/解密模型
@@ -78,26 +78,22 @@ class ApiController extends BaseController
         $this->aes = new Aes();
         $this->UserModel = UserModel::class;
         $this->params = $this->getRequestParams();
-        $this->token = $this->params['token'] ?? null;
+        $this->openid = $this->params['openid'] ?? null;
         $action = $this->request->action();
 
         if (!in_array($action, $this->noNeedLogin, true)) {
             $this->returnData['code'] = 5003;
-            if (!$this->token) {
+            if (!$this->openid) {
                 $this->returnApiData('权限不足：未登录');
             }
 
-            $this->userInfo = UserModel::where('token', $this->token)->find();
+            $this->userInfo = UserModel::where('openid', $this->openid)->find();
             if (!$this->userInfo) {
                 $this->returnApiData('用户不存在或未登录');
             }
 
             if (!$this->userInfo->getData('status')) {
                 $this->returnApiData(lang('Account is locked'));
-            }
-
-            if ($this->userInfo->token_expire_time < time()) {
-                $this->returnApiData('登录过期，请重新登录');
             }
 
             $this->returnData['code'] = 1;
