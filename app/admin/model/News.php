@@ -14,27 +14,38 @@ class News extends TimeModel
 
     public function newsCate()
     {
-        return $this->belongsTo('\app\admin\model\NewsCate', 'cate_id', 'id')->bind(['cate_title' => 'title']);
+        return $this->belongsTo(NewsCate::class, 'cate_id', 'id')->bind(['cate_title' => 'title']);
     }
 
     public function systemAdmin()
     {
-        return $this->belongsTo('\app\admin\model\SystemAdmin', 'author_id', 'id')->bind(['author' => 'username']);
+        return $this->belongsTo(SystemAdmin::class, 'author_id', 'id')->bind(['author' => 'username']);
     }
 
     public function newsComments()
     {
-        return $this->hasMany(NewsComments::class, 'id', 'news_id');
+        return $this->hasMany(NewsComments::class);
     }
 
+    public function userNewsShare() {
+        return $this->hasMany(UserNewsShare::class);
+    }
+
+    public function userNewsSupport() {
+        return $this->hasMany(UserNewsSupport::class);
+    }
+
+    public function userNewsCollect() {
+        return $this->hasMany(UserNewsCollect::class);
+    }
 
     public function getNewsCateList()
     {
-        return \app\admin\model\NewsCate::column('title', 'id');
+        return NewsCate::column('title', 'id');
     }
     public function getSystemAdminList()
     {
-        return \app\admin\model\SystemAdmin::column('username', 'id');
+        return SystemAdmin::column('username', 'id');
     }
     public function getStatusList()
     {

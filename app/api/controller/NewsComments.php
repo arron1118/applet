@@ -23,9 +23,17 @@ class NewsComments extends ApiController
      *
      * @return \think\Response
      */
-    public function index()
+    public function index(Request $request, $news_id)
     {
-        $list = $this->model::select();
+        $page = $request->param('page', 1);
+        $limit = $request->param('limit', 10);
+        $this->returnData['code'] = 1;
+        $this->returnData['data'] = $this->model::where([
+            ['news_id', '=', $news_id]
+        ])
+            ->limit(($page - 1) * $limit, $limit)
+            ->select();
+        $this->returnApiData();
     }
 
     /**

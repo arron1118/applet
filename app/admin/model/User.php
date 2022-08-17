@@ -45,4 +45,29 @@ class User extends TimeModel
         $this->openId = $openId;
 
     }
+
+    public function userNewsShare()
+    {
+        return $this->hasMany(UserNewsShare::class);
+    }
+
+    public function userNewsSupport()
+    {
+        return $this->hasMany(UserNewsSupport::class);
+    }
+
+    public function userNewsCollect()
+    {
+        return $this->hasMany(UserNewsCollect::class);
+    }
+
+    public function userNewsHistory()
+    {
+        return $this->hasMany(UserNewsHistory::class);
+    }
+
+    public function userNewsCommentsSupport()
+    {
+        return $this->hasMany(UserNewsCommentsSupport::class);
+    }
 }

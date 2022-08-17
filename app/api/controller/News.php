@@ -64,7 +64,7 @@ class News extends ApiController
     public function read($id)
     {
         $this->returnData['code'] = 1;
-        $this->returnData['data'] = $this->model::find($id);
+        $this->returnData['data'] = $this->model::withCount(['news_comments'])->find($id);
         $this->returnApiData();
     }
 
@@ -77,7 +77,49 @@ class News extends ApiController
      */
     public function update(Request $request, $id)
     {
-        //
+    }
+
+    /**
+     * 保存更新的资源
+     *
+     * @param  \think\Request  $request
+     * @param  int  $id
+     * @return \think\Response
+     */
+    public function setInc(Request $request, $id)
+    {
+        $params = $request->only(['id', 'share', 'collect', 'support', 'read_count']);
+        foreach ($params as $val) {
+            if ($val !== 'id') {
+                $this->model::where('id', $id)->inc($val)->update();
+            }
+        }
+
+        $model = null;
+        switch ($params) {
+            case 'share':
+                $model = \app\admin\model\UserNewsShare::class;
+                break;
+
+            case 'collect':
+                $model = \app\admin\model\UserNewsCollect::class;
+                break;
+
+            case 'support':
+                $model = \app\admin\model\UserNewsSupport::class;
+                break;
+
+            case 'read_count':
+                $model = \app\admin\model\UserNewsHistory::class;
+                break;
+        }
+
+        if ($model !== null) {
+            $model::save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
+        }
+
+        $this->returnData['code'] = 1;
+        $this->returnApiData();
     }
 
     /**

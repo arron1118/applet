@@ -125,7 +125,7 @@ class ApiController extends BaseController
      * @param string $param
      * @return mixed
      */
-    protected function getRequestParams(string $param = 'params')
+    protected function getRequestParams(string $param = '')
     {
         if ($this->needAes) {
             $data = $this->request->param($param);
