@@ -35,11 +35,12 @@ class NewsCollect extends AdminController
             }
             list($page, $limit, $where) = $this->buildTableParames();
             $count = $this->model
-                ->withJoin('user', 'LEFT')
+                ->with(['user', 'news'])
                 ->where($where)
                 ->count();
             $list = $this->model
-                ->withJoin('user', 'LEFT')
+                ->with(['user', 'news'])
+                ->hidden(['user', 'news'])
                 ->where($where)
                 ->page($page, $limit)
                 ->order($this->sort)

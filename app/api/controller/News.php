@@ -48,7 +48,7 @@ class News extends ApiController
 
         $this->returnData['code'] = 1;
         $this->returnData['data'] = $this->model::field('id, title, create_time, read_count')
-            ->where()
+            ->where($where)
             ->limit(($page - 1) * $limit, $limit)
             ->select();
         $this->returnApiData();

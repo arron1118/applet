@@ -35,11 +35,12 @@ class NewsCommentsSupport extends AdminController
             }
             list($page, $limit, $where) = $this->buildTableParames();
             $count = $this->model
-                ->withJoin('user', 'LEFT')
+                ->with(['user', 'newsComments'])
                 ->where($where)
                 ->count();
             $list = $this->model
-                ->withJoin('user', 'LEFT')
+                ->with(['user', 'newsComments'])
+                ->hidden(['user', 'newsComments'])
                 ->where($where)
                 ->page($page, $limit)
                 ->order($this->sort)
