@@ -30,15 +30,25 @@ class News extends ApiController
      */
     public function index()
     {
-        $cid = $this->params['cid'];
+        $cid = $this->params['cid'] ?? 0;
         $page = $this->params['page'] ?? 1;
         $limit = $this->params['limit'] ?? 10;
+        $title = $this->params['title'] ?? '';
+        $where = [
+            ['status', '=', 1],
+        ];
+
+        if ($title !== '') {
+            $where[] = ['title', 'like', '%' . $title . '%'];
+        }
+
+        if ($cid > 0) {
+            $where[] = ['cate_id', '=', $cid];
+        }
+
         $this->returnData['code'] = 1;
         $this->returnData['data'] = $this->model::field('id, title, create_time, read_count')
-            ->where([
-                ['status', '=', 1],
-                ['cate_id', '=', $cid],
-            ])
+            ->where()
             ->limit(($page - 1) * $limit, $limit)
             ->select();
         $this->returnApiData();

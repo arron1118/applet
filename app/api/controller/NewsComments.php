@@ -44,7 +44,14 @@ class NewsComments extends ApiController
      */
     public function save(Request $request)
     {
-        //
+        $this->returnData['code'] = 1;
+        $this->returnData['data'] = $this->model::save([
+            'pid' => $this->params['pid'] ?? 0,
+            'news_id' => $this->params['news_id'],
+            'user_id' => $this->userInfo->id,
+            'content' => $this->params['content'],
+        ]);
+        $this->returnApiData();
     }
 
     /**
