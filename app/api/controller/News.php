@@ -96,18 +96,18 @@ class News extends ApiController
             }
 
             if ($key === 'share') {
-                $model = \app\admin\model\UserNewsShare::class;
+                $model = new \app\admin\model\UserNewsShare();
             } elseif ($key === 'collect') {
-                $model = \app\admin\model\UserNewsCollect::class;
+                $model = new \app\admin\model\UserNewsCollect();
             } elseif ($key === 'support') {
-                $model = \app\admin\model\UserNewsSupport::class;
+                $model = new \app\admin\model\UserNewsSupport();
             } elseif ($key === 'read_count') {
-                $model = \app\admin\model\UserNewsHistory::class;
+                $model = new \app\admin\model\UserNewsHistory();
             }
         }
 
         if ($model !== null) {
-            $model::save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
+            $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
         }
 
         $this->returnData['code'] = 1;
