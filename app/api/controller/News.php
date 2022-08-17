@@ -28,13 +28,19 @@ class News extends ApiController
      *
      * @return \think\Response
      */
-    public function index($cid)
+    public function index(Request $request)
     {
+        $cid = $request->param('cid');
+        $page = $request->param('page', 1);
+        $limit = $request->param('limit', 10);
         $this->returnData['code'] = 1;
-        $this->returnData['data'] = $this->model::where([
-            ['status', '=', 1],
-            ['cate_id', '=', $cid],
-        ])->select();
+        $this->returnData['data'] = $this->model::field('id, title, create_time, read_count')
+            ->where([
+                ['status', '=', 1],
+                ['cate_id', '=', $cid],
+            ])
+            ->limit(($page - 1) * $limit, $limit)
+            ->select();
         $this->returnApiData();
     }
 
@@ -57,7 +63,9 @@ class News extends ApiController
      */
     public function read($id)
     {
-        //
+        $this->returnData['code'] = 1;
+        $this->returnData['data'] = $this->model::find($id);
+        $this->returnApiData();
     }
 
     /**
