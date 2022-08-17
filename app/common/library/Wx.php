@@ -148,7 +148,7 @@ class Wx
     {
         $curl = new Curl();
         $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param);
-        Log::info('wechat login', $curl->getResponse());
+        Log::info('wechat login', json_decode($curl->getResponse(), false));
         return json_decode($curl->response);
     }
 
