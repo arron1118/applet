@@ -97,6 +97,7 @@ class ApiController extends BaseController
             }
 
             $this->returnData['code'] = 1;
+            $this->returnData['userInfo'] = $this->userInfo;
         }
     }
 
