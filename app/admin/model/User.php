@@ -15,17 +15,32 @@ class User extends TimeModel
 
     public function getGenderList()
     {
-        return ['0'=>'保密','1'=>'男','2'=>'女',];
+        return ['0'=>'保密','1'=>'男','2'=>'女'];
     }
 
     public function getStatusList()
     {
-        return ['0'=>'禁用','1'=>'启用',];
+        return ['0'=>'禁用','1'=>'启用'];
+    }
+
+    public function getUserInfo($openid, $userInfo) {
+        $user = $this->where('openid', $openid)->find();
+        if (!$user) {
+            $data['openid'] = $openid;
+            $data['city'] = $userInfo['city'];
+            $data['header_img'] = $userInfo['avatarUrl'];
+            $data['country'] = $userInfo['country'];
+            $data['province'] = $userInfo['province'];
+            $data['nickname'] = $userInfo['nickName'];
+            $user = $this->save($data);
+        }
+
+        return $user;
     }
 
     public function signUp($openId, $userInfo)
     {
         $this->openId = $openId;
-        
+
     }
 }

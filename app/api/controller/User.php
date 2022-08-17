@@ -17,10 +17,11 @@ class User extends ApiController
         $this->model = UserModel::class;
     }
 
-    public function login($code)
+    public function login($code, $userInfo = [])
     {
         $data = (new Wx)->login($code);
-        $this->returnData['data'] = $data;
+        $res = (new UserModel)->getUserInfo($data['openid'], $userInfo);
+        $this->returnData['data'] = $res;
         $this->returnData['code'] = 1;
         $this->returnApiData();
     }
