@@ -28,11 +28,11 @@ class News extends ApiController
      *
      * @return \think\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $cid = $request->param('cid');
-        $page = $request->param('page', 1);
-        $limit = $request->param('limit', 10);
+        $cid = $this->params['cid'];
+        $page = $this->params['page'] ?? 1;
+        $limit = $this->params['limit'] ?? 10;
         $this->returnData['code'] = 1;
         $this->returnData['data'] = $this->model::field('id, title, create_time, read_count')
             ->where([

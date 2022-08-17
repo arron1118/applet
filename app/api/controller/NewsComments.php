@@ -23,13 +23,13 @@ class NewsComments extends ApiController
      *
      * @return \think\Response
      */
-    public function index(Request $request, $news_id)
+    public function index()
     {
-        $page = $request->param('page', 1);
-        $limit = $request->param('limit', 10);
+        $page = $this->params['page'] ?? 1;
+        $limit = $this->params['limit'] ?? 10;
         $this->returnData['code'] = 1;
         $this->returnData['data'] = $this->model::where([
-            ['news_id', '=', $news_id]
+            ['news_id', '=', $this->params['news_id']]
         ])
             ->limit(($page - 1) * $limit, $limit)
             ->select();
