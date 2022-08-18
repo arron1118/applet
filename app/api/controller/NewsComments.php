@@ -28,12 +28,30 @@ class NewsComments extends ApiController
         $page = $this->params['page'] ?? 1;
         $limit = $this->params['limit'] ?? 10;
         $this->returnData['code'] = 1;
-        $this->returnData['data'] = $this->model::where([
+        $comments = $this->model::where([
             ['news_id', '=', $this->params['news_id']]
         ])
-            ->limit(($page - 1) * $limit, $limit)
+//            ->limit(($page - 1) * $limit, $limit)
+                ->order('id', 'asc')
             ->select();
+        $this->returnData['data'] = $this->commentsFilter($comments);
         $this->returnApiData();
+    }
+
+    protected function commentsFilter($comments, $pid = 0)
+    {
+        $temp = [];
+        foreach ($comments as $key => $val) {
+            if ($val['pid'] === $pid) {
+                unset($comments[$key]);
+                if (!empty($comments)) {
+                    $val['child'] = $this->commentsFilter($comments, $val['id']);
+                }
+                $temp[] = $val;
+            }
+        }
+
+        return $temp;
     }
 
     /**
