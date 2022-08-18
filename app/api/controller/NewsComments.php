@@ -28,7 +28,9 @@ class NewsComments extends ApiController
         $page = $this->params['page'] ?? 1;
         $limit = $this->params['limit'] ?? 10;
         $this->returnData['code'] = 1;
-        $comments = $this->model::with(['user'])
+        $comments = $this->model::with(['user' => function ($query) {
+            $query->field('header_img, nickname');
+        }])
             ->where([
                 ['news_id', '=', $this->params['news_id']]
             ])
