@@ -75,6 +75,30 @@ class NewsComments extends ApiController
     }
 
     /**
+     * 保存更新的资源
+     *
+     * @param  \think\Request  $request
+     * @param  int  $id
+     * @return \think\Response
+     */
+    public function setInc(Request $request, $id)
+    {
+        $params = $request->only(['id', 'support']);
+
+        $this->model::where('comments_id', $id)->inc($params['support'])->update();
+        $model = new \app\admin\model\userNewsCommentsSupport();
+        $res = $model->where(['comments_id' => $id, 'user_id' => $this->userInfo->id])->find();
+        if (!$res) {
+            $model->save(['comments_id' => $id, 'user_id' => $this->userInfo->id]);
+        } else {
+            $res->delete();
+        }
+
+        $this->returnData['code'] = 1;
+        $this->returnApiData();
+    }
+
+    /**
      * 显示指定的资源
      *
      * @param int $id
