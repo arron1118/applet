@@ -21,7 +21,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'id', title: 'id', width: 250, search: false },
                     {field: 'title', title: '标题', search: false },
                     {field: 'content', title: '评论内容', search: false},
-                    {field: 'nickname', title: '用户', search: false},
+                    {field: 'user.nickname', title: '用户', search: false},
                     {field: 'support', title: '点赞', search: false},
                     {field: 'create_time', title: '创建时间', search: 'range'},
                     {width: 250, title: '操作', templet: ea.table.tool},

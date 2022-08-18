@@ -19,7 +19,7 @@ class NewsComments extends TimeModel
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->bind(['nickname']);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function userNewsCommentsSupport()
