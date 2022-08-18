@@ -117,7 +117,12 @@ class News extends ApiController
         }
 
         if ($model !== null) {
-            $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
+            $res = $model->where(['news_id' => $id, 'user_id' => $this->userInfo->id])->find();
+            if (!$res) {
+                $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
+            } else {
+                $res->delete();
+            }
         }
 
         $this->returnData['code'] = 1;
