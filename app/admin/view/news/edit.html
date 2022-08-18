@@ -19,6 +19,16 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">封面</label>
+            <div class="layui-input-block layuimini-upload">
+                <input name="cover_img" class="layui-input layui-col-xs6"   placeholder="请上传封面" value="{$row.cover_img|default=''}">
+                <div class="layuimini-upload-btn">
+                    <span><a class="layui-btn" data-upload="cover_img" data-upload-number="one" data-upload-exts="png|jpg|ico|jpeg" data-upload-icon="image"><i class="fa fa-upload"></i> 上传</a></span>
+                    <span><a class="layui-btn layui-btn-normal" id="select_cover_img" data-upload-select="cover_img" data-upload-number="one" data-upload-mimetype="image/*"><i class="fa fa-list"></i> 选择</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">新闻内容</label>
             <div class="layui-input-block">
                 <textarea name="content" rows="20" class="layui-textarea editor"  lay-verify="required" placeholder="请输入新闻内容">{$row.content|raw|default=''}</textarea>

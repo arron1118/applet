@@ -37,6 +37,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {type: 'checkbox'},
                     {field: 'id', title: 'ID', edit: 'text', search: false},
                     {field: 'title', title: '标题'},
+                    {field: 'cover_img', title: '封面', templet: ea.table.image},
                     {field: 'cate_title', title: '分类', search: false, selectList: [], },
                     {field: 'share', title: '分享', edit: 'text'},
                     {field: 'collect', title: '收藏', edit: 'text'},
