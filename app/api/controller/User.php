@@ -26,11 +26,15 @@ class User extends ApiController
         $this->returnApiData();
     }
 
-    public function getUserPhoneNumber($code)
+    public function getUserPhoneNumber($code, $openid)
     {
         $data = (new Wx)->getUserPhoneNumber($code);
+        $this->returnData['code'] = $data['errcode'];
+        if ($data['errcode'] === 0) {
+            (new UserModel())->updatePhone($openid, $data['phone_info']);
+        }
+        $this->returnData['msg'] = $data['errmsg'];
         $this->returnData['data'] = $data;
-        $this->returnData['code'] = 1;
         $this->returnApiData();
     }
 

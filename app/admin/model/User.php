@@ -40,6 +40,11 @@ class User extends TimeModel
         return $user;
     }
 
+    public function updatePhone($openid, $phone_info)
+    {
+        return $this->where(['openid' => $openid])->save(['phone' => $phone_info['phoneNumber']]);
+    }
+
     public function signUp($openId, $userInfo)
     {
         $this->openId = $openId;
