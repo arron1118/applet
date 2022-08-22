@@ -85,12 +85,13 @@ class NewsComments extends ApiController
     {
         $params = $request->only(['id', 'support']);
 
-        $this->model::where('id', $id)->inc('support')->update();
         $model = new \app\admin\model\userNewsCommentsSupport();
         $res = $model->where(['comments_id' => $id, 'user_id' => $this->userInfo->id])->find();
         if (!$res) {
+            $this->model::where('id', $id)->inc('support')->update();
             $model->save(['comments_id' => $id, 'user_id' => $this->userInfo->id]);
         } else {
+            $this->model::where('id', $id)->dec('support')->update();
             $res->delete();
         }
 

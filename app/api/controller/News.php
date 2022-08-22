@@ -99,11 +99,8 @@ class News extends ApiController
     public function setInc(Request $request, $id)
     {
         $params = $request->only(['id', 'share', 'collect', 'support', 'read_count']);
-        $model = null;
         foreach ($params as $key => $val) {
-            if ($key !== 'id') {
-                $this->model::where('id', $id)->inc($key)->update();
-            }
+            $model = null;
 
             if ($key === 'share') {
                 $model = new \app\admin\model\UserNewsShare();
@@ -114,14 +111,16 @@ class News extends ApiController
             } elseif ($key === 'read_count') {
                 $model = new \app\admin\model\UserNewsHistory();
             }
-        }
 
-        if ($model !== null) {
-            $res = $model->where(['news_id' => $id, 'user_id' => $this->userInfo->id])->find();
-            if (!$res) {
-                $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
-            } else {
-                $res->delete();
+            if ($model !== null) {
+                $res = $model->where(['news_id' => $id, 'user_id' => $this->userInfo->id])->find();
+                if (!$res) {
+                    $this->model::where('id', $id)->inc($key)->update();
+                    $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
+                } else {
+                    $this->model::where('id', $id)->dec($key)->update();
+                    $res->delete();
+                }
             }
         }
 
