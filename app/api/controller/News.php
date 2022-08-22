@@ -118,8 +118,10 @@ class News extends ApiController
                     $this->model::where('id', $id)->inc($key)->update();
                     $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
                 } else {
-                    $this->model::where('id', $id)->dec($key)->update();
-                    $res->delete();
+                    if ($key !== 'read_count') {
+                        $this->model::where('id', $id)->dec($key)->update();
+                        $res->delete();
+                    }
                 }
             }
         }
