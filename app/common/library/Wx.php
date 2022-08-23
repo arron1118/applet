@@ -148,7 +148,7 @@ class Wx
     {
         $curl = new Curl();
         $curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);   // 不验证证书
-        $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param);
+        $method === 'get' ? $curl->get($url, $param) : $curl->post($url, $param, true);
         return json_decode($curl->response, true);
     }
 
