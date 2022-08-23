@@ -32,10 +32,10 @@ class User extends ApiController
         $this->returnData['code'] = $data['errcode'];
         if ($data['errcode'] === 0) {
             (new UserModel())->updatePhone($openid, $data['phone_info']);
+            $this->returnData['code'] = 1;
+            $this->returnData['data'] = $data['phone_info'];
         }
         $this->returnData['msg'] = $data['errmsg'];
-        $this->returnData['data'] = $data;
-        $this->returnData['access_token'] = (new Wx)->getAccessToken();
         $this->returnApiData();
     }
 
