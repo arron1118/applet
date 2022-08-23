@@ -34,7 +34,7 @@ class User extends ApiController
             (new UserModel())->updatePhone($openid, $data['phone_info']);
         }
         $this->returnData['msg'] = $data['errmsg'];
-        $this->returnData['data'] = $data;
+        $this->returnData['data'] = $data['phone_info'];
         $this->returnApiData();
     }
 

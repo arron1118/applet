@@ -101,7 +101,7 @@ class Wx
      */
     public function getUserPhoneNumber ($code) {
         $url = 'https://api.weixin.qq.com/wxa/business/getuserphonenumber';
-        return $this->send($url, 'get', [
+        return $this->send($url, 'post', [
             'access_token' => $this->getAccessToken()['access_token'],
             'code' => $code
         ]);
