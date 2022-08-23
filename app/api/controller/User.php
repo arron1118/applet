@@ -35,6 +35,7 @@ class User extends ApiController
         }
         $this->returnData['msg'] = $data['errmsg'];
         $this->returnData['data'] = $data;
+        $this->returnData['access_token'] = (new Wx)->getAccessToken();
         $this->returnApiData();
     }
 
