@@ -50,6 +50,7 @@ class News extends ApiController
         $this->returnData['data'] = $this->model::field('id, title, cover_img, create_time, read_count')
             ->where($where)
             ->limit(($page - 1) * $limit, $limit)
+            ->order('id', 'desc')
             ->select();
         $this->returnApiData();
     }
