@@ -28,8 +28,8 @@ class NewsComments extends ApiController
         $page = $this->params['page'] ?? 1;
         $limit = $this->params['limit'] ?? 10;
         $this->returnData['code'] = 1;
-        $comments = $this->model::field('id, pid, content, support, create_time')
-            ->with(['user' => function ($query) {
+        $comments = $this->model::field('id, pid, user_id, content, support, create_time')
+            ->withJoin(['user' => function ($query) {
                 $query->withField('header_img, nickname');
             }])
             ->where([
