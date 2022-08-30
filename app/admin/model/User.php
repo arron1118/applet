@@ -32,6 +32,7 @@ class User extends TimeModel
             $data['country'] = $userInfo['country'];
             $data['province'] = $userInfo['province'];
             $data['nickname'] = $userInfo['nickName'];
+            $data['news_id'] = $userInfo['news_id'];
             $this->save($data);
 
             $user = $this;
