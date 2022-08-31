@@ -32,9 +32,7 @@ class NewsComments extends ApiController
             ->withJoin(['user' => function ($query) {
                 $query->withField('header_img, nickname');
             }])
-            ->where([
-                ['news_id', '=', $this->params['news_id']]
-            ])
+            ->where('news_id', $this->params['news_id'])
             ->order('id', 'asc')
             ->select();
         $this->returnData['data'] = $this->commentsFilter($comments);
