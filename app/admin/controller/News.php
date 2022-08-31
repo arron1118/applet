@@ -45,7 +45,7 @@ class News extends AdminController
                 ->with(['systemAdmin', 'newsCate'])
                 ->where($where)
                 ->count();
-            $list = $this->model
+            $list = $this->model->withCount(['user'])
                 ->with(['systemAdmin', 'newsCate'])
                 ->hidden(['systemAdmin', 'newsCate'])
                 ->where($where)

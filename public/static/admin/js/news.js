@@ -43,11 +43,12 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'collect', title: '收藏', edit: 'text'},
                     {field: 'support', title: '点赞', edit: 'text'},
                     {field: 'read_count', title: '阅读', edit: 'text'},
+                    {field: 'user_count', title: '注册用户'},
                     {field: 'sort', title: '排序', edit: 'text', search: false},
                     {field: 'status', search: 'select', selectList: ["禁用","启用"], title: '状态', templet: ea.table.switch},
                     {field: 'author', title: '作者', search: false},
                     {field: 'create_time', title: '创建时间', search: 'range'},
-                    {width: 250, title: '操作', templet: ea.table.tool, operat: [
+                    {width: 150, title: '操作', templet: ea.table.tool, operat: [
                         [{
                             text: '编辑',
                             extra: 'name',

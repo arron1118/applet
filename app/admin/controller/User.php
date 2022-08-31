@@ -40,7 +40,7 @@ class User extends AdminController
             $count = $this->model
                 ->where($where)
                 ->count();
-            $list = $this->model
+            $list = $this->model->with(['fromNews'])
                 ->withoutField('password')
                 ->where($where)
                 ->page($page, $limit)

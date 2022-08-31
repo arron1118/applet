@@ -76,4 +76,8 @@ class User extends TimeModel
     {
         return $this->hasMany(UserNewsCommentsSupport::class);
     }
+
+    public function fromNews() {
+        return $this->belongsTo(News::class, 'from_news', 'id')->bind(['news_title' => 'title']);
+    }
 }

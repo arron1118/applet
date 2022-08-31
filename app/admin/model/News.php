@@ -52,5 +52,8 @@ class News extends TimeModel
         return ['0'=>'禁用','1'=>'启用',];
     }
 
-
+    public function user()
+    {
+        return $this->hasMany(User::class, 'from_news', 'id');
+    }
 }
