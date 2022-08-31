@@ -28,14 +28,15 @@ class NewsComments extends ApiController
         $page = $this->params['page'] ?? 1;
         $limit = $this->params['limit'] ?? 10;
         $this->returnData['code'] = 1;
-//        $comments = $this->model::field('id, pid, user_id, content, support, create_time')
-//            ->withJoin(['user' => function ($query) {
-//                $query->withField('header_img, nickname');
-//            }])
-//            ->where('news_id', $this->params['news_id'])
-//            ->order('id', 'asc')
-//            ->select();
+        $comments = $this->model::field('id, pid, user_id, content, support, create_time')
+            ->withJoin(['user' => function ($query) {
+                $query->withField('header_img, nickname');
+            }])
+            ->where('news_id', $this->params['news_id'])
+            ->order('id', 'asc')->fetchSql()
+            ->select();
 //        $this->returnData['data'] = $this->commentsFilter($comments);
+        $this->returnData['sql'] = $comments;
         $this->returnData['params'] = $this->params;
         $this->returnApiData();
     }
