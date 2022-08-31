@@ -32,11 +32,16 @@ class User extends AdminController
      */
     public function index()
     {
+        $news_id = $this->request->get('from_news', 0);
+        $this->assign('from_news', $news_id);
         if ($this->request->isAjax()) {
             if (input('selectFields')) {
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParames();
+            if ($news_id > 0) {
+                $where[] = ['from_news', '=', $news_id];
+            }
             $count = $this->model
                 ->where($where)
                 ->count();

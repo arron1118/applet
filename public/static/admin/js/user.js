@@ -12,8 +12,11 @@ define(["jquery", "easy-admin"], function ($, ea) {
     };
 
     var Controller = {
-
         index: function () {
+            // 根据新闻来源查看用户
+            const from_news = $('table').data('from-news')
+            init.index_url = init.index_url + '?from_news=' + from_news
+
             ea.table.render({
                 init: init,
                 cols: [[

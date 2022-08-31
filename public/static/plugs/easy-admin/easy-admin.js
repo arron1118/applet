@@ -249,6 +249,9 @@ define(["jquery", "tableSelect", "ckeditor"], function ($, tableSelect, undefine
                 // 监听表格开关切换
                 admin.table.listenEdit(options.init, options.layFilter, options.id, options.modifyReload);
 
+                // 监听表格开关切换
+                admin.table.listenTool(options.layFilter);
+
                 return newTable;
             },
             renderToolbar: function (data, elem, tableId, init) {
@@ -838,6 +841,24 @@ define(["jquery", "tableSelect", "ckeditor"], function ($, tableSelect, undefine
                         });
                     });
                 }
+            },
+            listenTool: function (layFilter) {
+                table.on('tool(' + layFilter + ')', function (obj) {
+                    var data = obj.data,
+                        id = data.id,
+                        clientWidth = '100%',
+                        clientHeight = '100%';
+
+                    if (obj.event === 'checkUserList') {
+                        admin.open(
+                            $(this).attr('data-title'),
+                            admin.url('user/index?from_news=' + id),
+                            clientWidth,
+                            clientHeight,
+                        );
+                    }
+
+                });
             },
         },
         checkMobile: function () {

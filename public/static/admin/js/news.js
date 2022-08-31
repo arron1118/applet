@@ -10,17 +10,11 @@ define(["jquery", "easy-admin"], function ($, ea) {
         export_url: 'news/export',
         modify_url: 'news/modify',
     };
+    const table = layui.table
 
     var Controller = {
 
         index: function () {
-            let selectList = []
-            // ea.request.post({ url: ea.url('news/getNewsCateList') }, function (res) {
-            //     console.log(res)
-            //     $.each(res.data, function (index, item) {
-            //         selectList[item.id] = item.title
-            //     })
-            // })
             ea.table.render({
                 init: init,
                 search: true,
@@ -43,7 +37,9 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'collect', title: '收藏', edit: 'text'},
                     {field: 'support', title: '点赞', edit: 'text'},
                     {field: 'read_count', title: '阅读', edit: 'text'},
-                    {field: 'user_count', title: '注册用户'},
+                    {field: 'user_count', title: '注册用户', event: 'checkUserList', style: 'cursor: pointer', templet: function (row) {
+                        return '<span style="color: #1E9FFF" title="点击查看用户列表">' + row.user_count + '</span>'
+                        } },
                     {field: 'sort', title: '排序', edit: 'text', search: false},
                     {field: 'status', search: 'select', selectList: ["禁用","启用"], title: '状态', templet: ea.table.switch},
                     {field: 'author', title: '作者', search: false},
