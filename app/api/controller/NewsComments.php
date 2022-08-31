@@ -33,11 +33,9 @@ class NewsComments extends ApiController
                 $query->withField('header_img, nickname');
             }])
             ->where('news_id', $this->params['news_id'])
-            ->order('id', 'asc')->fetchSql()
+            ->order('id', 'asc')
             ->select();
-//        $this->returnData['data'] = $this->commentsFilter($comments);
-        $this->returnData['sql'] = $comments;
-        $this->returnData['params'] = $this->params;
+        $this->returnData['data'] = $this->commentsFilter($comments);
         $this->returnApiData();
     }
 
