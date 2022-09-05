@@ -11,6 +11,28 @@ class UserNewsHistory extends TimeModel
 
     protected $deleteTime = "delete_time";
 
+    public function getViewTimeAttr($value)
+    {
+        $minute = 0;
+        $second = 0;
+        $microtime = 0;
+
+        if ($value > 0) {
+            $time = explode('.', $value / 1000);
+            $minute = floor($time[0] / 60);
+            $second = $time[0] % 60;
+            $microtime = $time[1];
+        }
+
+        if ($minute < 10) {
+            $minute = '0' . $minute;
+        }
+        if ($second < 10) {
+            $second = '0' . $second;
+        }
+
+        return $minute . ':' . $second . '.' . $microtime;
+    }
 
     public function news()
     {
