@@ -99,7 +99,7 @@ class News extends ApiController
      */
     public function setInc(Request $request, $id)
     {
-        $params = $request->only(['id', 'share', 'collect', 'support', 'read_count']);
+        $params = $request->only(['id', 'share', 'collect', 'support']);
         foreach ($params as $key => $val) {
             $model = null;
 
@@ -109,8 +109,6 @@ class News extends ApiController
                 $model = new \app\admin\model\UserNewsCollect();
             } elseif ($key === 'support') {
                 $model = new \app\admin\model\UserNewsSupport();
-            } elseif ($key === 'read_count') {
-                $model = new \app\admin\model\UserNewsHistory();
             }
 
             if ($model !== null) {
@@ -119,16 +117,28 @@ class News extends ApiController
                     $this->model::where('id', $id)->inc($key)->update();
                     $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
                 } else {
-                    if ($key !== 'read_count') {
-                        $this->model::where('id', $id)->dec($key)->update();
-                        $res->delete();
-                    }
+                    $this->model::where('id', $id)->dec($key)->update();
+                    $res->delete();
                 }
             }
         }
 
         $this->returnData['code'] = 1;
         $this->returnApiData();
+    }
+
+    /**
+     * 添加浏览记录
+     * @param $id   新闻ID
+     */
+    public function setViewHistory($id)
+    {
+        $this->model::where('id', $id)->inc('read_count')->update();
+        (new \app\admin\model\UserNewsHistory())->save([
+            'news_id' => $id,
+            'user_id' => $this->userInfo->id,
+            'view_time' => $this->params['view_time'],
+        ]);
     }
 
     /**
