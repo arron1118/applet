@@ -20,7 +20,7 @@ class User extends ApiController
     public function login($code, $userInfo = [])
     {
         $data = (new Wx)->login($code);
-        if (!$data) {
+        if (!$data['openid']) {
             $this->returnApiData('无法获取授权信息');
         }
         $res = (new UserModel())->getUserInfo($data['openid'], $userInfo);
