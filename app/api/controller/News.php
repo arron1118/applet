@@ -129,7 +129,7 @@ class News extends ApiController
 
     /**
      * 添加浏览记录
-     * @param $id   新闻ID
+     * @param int $id   新闻ID
      */
     public function setViewHistory($id)
     {
