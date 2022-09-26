@@ -16,13 +16,14 @@ define(["jquery", "easy-admin"], function ($, ea) {
         index: function () {
             ea.table.render({
                 init: init,
+                toolbar: ['refresh', 'delete', 'export'],
                 cols: [[
                     {type: 'checkbox'},
                     {field: 'id', title: 'id'},
                     {field: 'content', title: '评论内容'},
                     {field: 'nickname', title: '点赞用户'},
                     {field: 'create_time', title: '创建时间'},
-                    {width: 250, title: '操作', templet: ea.table.tool},
+                    {width: 250, title: '操作', templet: ea.table.tool, operat: ['delete']},
                 ]],
             });
 
