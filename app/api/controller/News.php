@@ -136,6 +136,7 @@ class News extends ApiController
         $this->model::where('id', $id)->inc('read_count')->update();
         (new \app\admin\model\UserNewsHistory())->save([
             'news_id' => $id,
+            'title' => $this->model::where('id', $id)->value('title'),
             'user_id' => $this->userInfo->id,
             'view_time' => $this->params['view_time'],
         ]);

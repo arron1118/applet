@@ -35,12 +35,12 @@ class NewsHistory extends AdminController
             }
             list($page, $limit, $where) = $this->buildTableParames();
             $count = $this->model
-                ->with(['news', 'user'])
+                ->with(['user'])
                 ->where($where)
                 ->count();
             $list = $this->model
-                ->with(['news', 'user'])
-                ->hidden(['news', 'user'])
+                ->with(['user'])
+                ->hidden(['user'])
                 ->where($where)
                 ->page($page, $limit)
                 ->order($this->sort)
