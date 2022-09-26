@@ -21,7 +21,7 @@ class UserNewsHistory extends TimeModel
             $time = explode('.', $value / 1000);
             $minute = floor($time[0] / 60);
             $second = $time[0] % 60;
-            $microtime = $time[1];
+            $microtime = $time[1] ?? '000';
         }
 
         if ($minute < 10) {
