@@ -21,7 +21,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                 init: init,
                 cols: [[
                     {type: 'checkbox'},
-                    {field: 'id', title: 'id', search: false},
+                    {field: 'id', title: 'id', width: 120, search: false},
                     {field: 'nickname', title: '昵称'},
                     {field: 'phone', title: '手机号'},
                     {field: 'header_img', title: '头像', templet: ea.table.image},

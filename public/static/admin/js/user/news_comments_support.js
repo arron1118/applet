@@ -19,7 +19,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                 toolbar: ['refresh', 'delete', 'export'],
                 cols: [[
                     {type: 'checkbox'},
-                    {field: 'id', title: 'id'},
+                    {field: 'id', title: 'id', width: 120},
                     {field: 'content', title: '评论内容'},
                     {field: 'nickname', title: '点赞用户'},
                     {field: 'create_time', title: '创建时间'},

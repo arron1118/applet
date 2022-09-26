@@ -29,7 +29,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                 }], 'delete'],
                 cols: [[
                     {type: 'checkbox'},
-                    {field: 'id', title: 'ID', edit: 'text', search: false},
+                    {field: 'id', title: 'ID', width: 120, edit: 'text', search: false},
                     {field: 'title', title: '标题'},
                     {field: 'cover_img', title: '封面', templet: ea.table.image},
                     {field: 'cate_title', title: '分类', search: false, selectList: [], },
