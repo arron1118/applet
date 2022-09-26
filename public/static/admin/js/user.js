@@ -26,7 +26,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'phone', title: '手机号'},
                     {field: 'header_img', title: '头像', templet: ea.table.image},
                     {field: 'gender', search: 'select', selectList: ["保密","男","女"], title: '性别'},
-                    {field: 'news_title', title: '用户来源'},
+                    {field: 'news_title', title: '用户来源', search: false},
                     {field: 'status', search: 'select', selectList: ["禁用","启用"], title: '状态', templet: ea.table.switch},
                     {field: 'create_time', title: '创建时间', search: 'range'},
                     {width: 200, title: '操作', templet: ea.table.tool},
