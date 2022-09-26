@@ -16,6 +16,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
         index: function () {
             ea.table.render({
                 init: init,
+                toolbar: ['refresh', 'delete'],
                 cols: [[
                     {type: 'checkbox'},
                     {field: 'id', title: 'id', width: 250, search: false },
@@ -24,7 +25,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'user.nickname', title: '用户', search: false},
                     {field: 'support', title: '点赞', search: false},
                     {field: 'create_time', title: '创建时间', search: 'range'},
-                    {width: 250, title: '操作', templet: ea.table.tool},
+                    {width: 250, title: '操作', templet: ea.table.tool, operat: ['delete']},
                 ]],
             });
 
