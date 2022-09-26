@@ -42,6 +42,11 @@ class User extends AdminController
             if ($news_id > 0) {
                 $where[] = ['from_news', '=', $news_id];
             }
+            $adminId = session('admin.id');
+            if ($adminId !== 1) {
+                $where[] = ['admin_id', '=', $adminId];
+            }
+
             $count = $this->model
                 ->where($where)
                 ->count();

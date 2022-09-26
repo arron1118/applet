@@ -33,6 +33,7 @@ class User extends TimeModel
             $data['province'] = $userInfo['province'];
             $data['nickname'] = $userInfo['nickName'];
             $data['from_news'] = $userInfo['news_id'] ?? 0;
+            $data['admin_id'] = News::where('id', $userInfo['news_id'])->value('author_id');
             $this->save($data);
 
             $user = $this;
