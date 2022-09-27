@@ -114,8 +114,14 @@ class News extends ApiController
             if ($model !== null) {
                 $res = $model->where(['news_id' => $id, 'user_id' => $this->userInfo->id])->find();
                 if (!$res) {
+                    $news = $this->model::where('id', $id)->field('title, author_id')->find();
                     $this->model::where('id', $id)->inc($key)->update();
-                    $model->save(['news_id' => $id, 'user_id' => $this->userInfo->id]);
+                    $model->save([
+                        'news_id' => $id,
+                        'title' => $news->title,
+                        'user_id' => $this->userInfo->id,
+                        'admin_id' => $news->author_id,
+                    ]);
                 } else {
                     $this->model::where('id', $id)->dec($key)->update();
                     $res->delete();
@@ -133,11 +139,13 @@ class News extends ApiController
      */
     public function setViewHistory($id)
     {
+        $news = $this->model::where('id', $id)->field('title, author_id')->find();
         $this->model::where('id', $id)->inc('read_count')->update();
         (new \app\admin\model\UserNewsHistory())->save([
             'news_id' => $id,
-            'title' => $this->model::where('id', $id)->value('title'),
+            'title' => $news->title,
             'user_id' => $this->userInfo->id,
+            'admin_id' => $news->author_id,
             'view_time' => $this->params['view_time'],
         ]);
     }

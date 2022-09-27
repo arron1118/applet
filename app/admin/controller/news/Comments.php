@@ -34,13 +34,17 @@ class Comments extends AdminController
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParames();
+            $adminId = session('admin.id');
+            if ($adminId !== 1) {
+                $where[] = ['admin_id', '=', $adminId];
+            }
             $count = $this->model
-                ->with(['user', 'news'])
+                ->with(['user'])
                 ->where($where)
                 ->count();
             $list = $this->model
-                ->with(['user', 'news'])
-                ->hidden(['user', 'news'])
+                ->with(['user'])
+                ->hidden(['user'])
                 ->where($where)
                 ->page($page, $limit)
                 ->order($this->sort)

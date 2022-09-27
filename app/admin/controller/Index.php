@@ -33,11 +33,17 @@ class Index extends AdminController
      */
     public function welcome()
     {
+        $adminId = session('admin.id');
+        $where = $newsWhere = [];
+        if ($adminId !== 1) {
+            $where[] = ['admin_id', '=', $adminId];
+            $newsWhere[] = ['author_id', '=', $adminId];
+        }
         $this->assign([
-            'user_count' => \app\admin\model\User::count(),
-            'user_news_history_count' => UserNewsHistory::count(),
-            'news_count' => \app\admin\model\News::count(),
-            'user_news_share_count' => UserNewsShare::count(),
+            'user_count' => \app\admin\model\User::where($where)->count(),
+            'user_news_history_count' => UserNewsHistory::where($where)->count(),
+            'news_count' => \app\admin\model\News::where($newsWhere)->count(),
+            'user_news_share_count' => UserNewsShare::where($where)->count(),
         ]);
         return $this->fetch();
     }

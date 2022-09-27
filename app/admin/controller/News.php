@@ -43,7 +43,7 @@ class News extends AdminController
             list($page, $limit, $where) = $this->buildTableParames();
             $adminId = session('admin.id');
             if ($adminId !== 1) {
-                $where['author_id'] = $adminId;
+                $where[] = ['author_id', '=', $adminId];
             }
             $count = $this->model
                 ->with(['systemAdmin', 'newsCate'])

@@ -34,6 +34,10 @@ class NewsHistory extends AdminController
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParames();
+            $adminId = session('admin.id');
+            if ($adminId !== 1) {
+                $where[] = ['admin_id', '=', $adminId];
+            }
             $count = $this->model
                 ->with(['user'])
                 ->where($where)
